@@ -14,5 +14,5 @@ build:
     - "numpy"
     - "scipy"
     - "huggingface_hub"
-
+image: "r8.im/bawolf/break-video-clip"
 predict: "predict.py:Predictor"

@@ -4,7 +4,7 @@ import os
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from scripts.train import train_and_evaluate
+from script.train import train_and_evaluate
 from src.utils.utils import create_run_directory
 
 def objective(trial, hyperparam_run_dir):

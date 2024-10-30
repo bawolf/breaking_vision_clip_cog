@@ -22,6 +22,20 @@ curl -o /usr/local/bin/cog -L https://github.com/replicate/cog/releases/latest/d
 chmod +x /usr/local/bin/cog
 ```
 
+## Cog
+
+build the image
+
+```bash
+cog build --separate-weights
+```
+
+push the image
+
+```bash
+cog push
+```
+
 ## Training
 
 ```bash
@@ -74,21 +88,6 @@ clip/
 - Custom temporal pooling layer
 - Fine-tuned vision encoder (last 3 layers)
 - Output: 4-class classifier
-
-## Performance
-
-- Training Accuracy: ~95%
-- Validation Accuracy: ~92%
-- Inference Time: ~100ms per video
-
-## Configuration
-
-Key hyperparameters can be modified in `config/default.yaml`:
-- Frame sampling: 10 frames per video
-- Image size: 224x224
-- Learning rate: 2e-6
-- Weight decay: 0.007
-- Data augmentation parameters
 
 ## License
 
