@@ -12,9 +12,9 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from src.utils.utils import create_run_directory
-from src.data.dataset import VideoDataset
+from src.dataset.dataset import VideoDataset
 from src.models.model import create_model
-from src.data.video_utils import create_transform
+from src.dataset.video_utils import create_transform
 
 def train_and_evaluate(config):
     # Create a run directory if it doesn't exist
@@ -228,11 +228,11 @@ def main():
     config = {
         "class_labels": class_labels,
         "num_classes": len(class_labels),
-        "data_path": '../finetune/3moves_otherpeopletrain',
+        "data_path": '../finetune/3moves_otherpeopleval',
         "batch_size": 32,
         "learning_rate": 2e-6,
         "weight_decay": 0.007,
-        "num_epochs": 1,
+        "num_epochs": 50,
         "patience": 10,  # for early stopping
         "max_frames": 10,
         "sigma": 0.3,

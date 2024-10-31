@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from src.utils.utils import get_latest_run_dir, get_latest_model_path, get_config
 from src.models.model import load_model
-from src.data.video_utils import create_transform, extract_frames
+from src.dataset.video_utils import create_transform, extract_frames
 
 def setup_model(run_dir=None):
     """Setup model and configuration"""

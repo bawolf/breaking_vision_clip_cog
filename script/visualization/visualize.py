@@ -9,7 +9,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
-from src.data.dataset import VideoDataset
+from src.dataset.dataset import VideoDataset
 from src.utils.utils import get_latest_model_path, get_latest_run_dir, get_config
 from src.models.model import load_model
 
