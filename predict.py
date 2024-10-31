@@ -2,10 +2,13 @@ import os
 from cog import BasePredictor, Input, Path
 import torch
 import json
-from src.models.model import load_model
-from src.data.video_utils import create_transform, extract_frames
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-CHECKPOINT_DIR = "runs/run_20241024-150232_otherpeopleval_large_model/"
+from src.models.model import load_model
+from src.dataset.video_utils import create_transform, extract_frames
+
+CHECKPOINT_DIR = "checkpoints/"
 
 class Predictor(BasePredictor):
     def setup(self):
@@ -24,7 +27,7 @@ class Predictor(BasePredictor):
         # Load model
         self.model = load_model(
             self.config['num_classes'],
-            os.path.join(CHECKPOINT_DIR, "best_model.pth"),
+            os.path.join(CHECKPOINT_DIR, "weights.ckpt"),
             self.device,
             self.config['clip_model']
         )
