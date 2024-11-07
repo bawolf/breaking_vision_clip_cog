@@ -35,6 +35,8 @@ ENV/
 
 # Project specific
 runs/
+outputs/
+runs_hyperparam/
 checkpoints/
 *.pth
 *.ckpt

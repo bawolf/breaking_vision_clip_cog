@@ -2,6 +2,7 @@ import torch
 from torch.utils.data import Dataset
 import csv
 from .video_utils import create_transform, extract_frames
+import os
 
 class VideoDataset(Dataset):
     def __init__(self, file_path, config, transform=None):
@@ -29,7 +30,8 @@ class VideoDataset(Dataset):
                 if len(row) != 2:
                     print(f"Skipping invalid row: {row}")
                     continue
-                video_path, label = row
+                relative_video_path, label = row
+                video_path = os.path.join(config['data_path'], relative_video_path)
                 try:
                     label = int(label)
                 except ValueError:

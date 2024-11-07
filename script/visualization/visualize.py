@@ -110,28 +110,28 @@ def generate_evaluation_metrics(model, data_loader, device, output_dir, class_la
 
     return cm
 
-if __name__ == "__main__":
-    # Find the most recent run directory
-    #
-    run_dir = get_latest_run_dir()
-    # run_dir= "/home/bawolf/workspace/break/clip/runs/run_20241024-150232_otherpeopleval_large_model"
-    # run_dir = "/home/bawolf/workspace/break/clip/runs/run_20241022-122939_3moves_balanced"
-
+def run_visualization(run_dir, data_path=None, test_csv=None):
+    """
+    Run visualization for a specific training run
+    
+    Args:
+        run_dir (str): Path to the run directory
+        data_path (str, optional): Override the data path from config
+        test_csv (str, optional): Override the test CSV path
+    """
     # Load configuration
     config = get_config(run_dir)
     
     class_labels = config['class_labels']
     num_classes = config['num_classes']
-    data_path = config['data_path']
-    # data_path= '../finetune/3moves_otherpeopleval'
-    # data_path = '../finetune/otherpeople3moves'
+    data_path = data_path or config['data_path']
 
     # Paths
     log_file = os.path.join(run_dir, 'training_log.csv')
     model_path = get_latest_model_path(run_dir)
-    test_csv = os.path.join(data_path, 'test.csv')
-    # test_csv = os.path.join(data_path, 'val.csv')
-    # test_csv = os.path.join(data_path, 'train.csv')
+    
+    if test_csv is None:
+        test_csv = os.path.join(data_path, 'test.csv')
     
     # Get the last directory of data_path and the file name
     last_dir = os.path.basename(os.path.normpath(data_path))
@@ -160,3 +160,12 @@ if __name__ == "__main__":
     cm = generate_evaluation_metrics(model, test_loader, device, vis_dir, class_labels, data_info)
     
     print(f"Visualization complete! Check the output directory: {vis_dir}")
+    return vis_dir, cm
+
+if __name__ == "__main__":
+    # Find the most recent run directory
+    run_dir = get_latest_run_dir()
+    # run_dir = "/home/bawolf/workspace/break/clip/runs/run_20241024-150232_otherpeopleval_large_model"
+    # run_dir = "/home/bawolf/workspace/break/clip/runs/run_20241022-122939_3moves_balanced"
+    
+    run_visualization(run_dir)
