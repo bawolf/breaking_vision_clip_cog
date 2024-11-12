@@ -44,6 +44,12 @@ cog push
 
 ## Training
 
+download the training data
+
+```bash
+gdown https://drive.google.com/uc?id=11M6nSuSuvoU2wpcV_-6KFqCzEMGP75q6?usp=drive_link -O ./data/
+```
+
 ```bash
 # Run training with default configuration
 python scripts/train.py
@@ -105,7 +111,11 @@ To run predictions with cog or locally on an existing checkpoint, you can find a
 
 ## License
 
-[Your License Here]
+MIT License
+
+Copyright (c) 2024 Bryant Wolf
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Citation
 
