@@ -45,9 +45,10 @@ def generate_evaluation_metrics(model, data_loader, device, output_dir, class_la
     all_preds = []
     all_labels = []
     all_probs = []
+    all_files = []
 
     with torch.no_grad():
-        for frames, labels, _ in data_loader:
+        for frames, labels, filenames in data_loader:
             frames = frames.to(device)
             labels = labels.to(device)
             
@@ -58,10 +59,43 @@ def generate_evaluation_metrics(model, data_loader, device, output_dir, class_la
             all_preds.extend(predicted.cpu().numpy())
             all_labels.extend(labels.cpu().numpy())
             all_probs.extend(probs.cpu().numpy())
+            all_files.extend(filenames)
 
     all_labels = np.array(all_labels)
     all_preds = np.array(all_preds)
     all_probs = np.array(all_probs)
+
+    # Generate error analysis file
+    error_file = os.path.join(output_dir, 'error_analysis.txt')
+    with open(error_file, 'w') as f:
+        f.write(f"Error Analysis for {data_info}\n")
+        f.write("=" * 80 + "\n\n")
+        
+        # Overall accuracy
+        accuracy = (all_labels == all_preds).mean()
+        f.write(f"Overall Accuracy: {accuracy:.2%}\n\n")
+        
+        # Per-class accuracy
+        f.write("Per-Class Accuracy:\n")
+        for i, class_name in enumerate(class_labels):
+            class_mask = all_labels == i
+            if class_mask.sum() > 0:
+                class_acc = (all_preds[class_mask] == i).mean()
+                f.write(f"{class_name}: {class_acc:.2%} ({(class_mask).sum()} samples)\n")
+        f.write("\n")
+        
+        # Detailed error analysis
+        f.write("Misclassified Videos:\n")
+        f.write("-" * 80 + "\n")
+        f.write(f"{'Filename':<40} {'True Class':<20} {'Predicted Class':<20} Confidence\n")
+        f.write("-" * 80 + "\n")
+        
+        for i, (true_label, pred_label, probs, filename) in enumerate(zip(all_labels, all_preds, all_probs, all_files)):
+            if true_label != pred_label:
+                true_class = class_labels[true_label]
+                pred_class = class_labels[pred_label]
+                confidence = probs[pred_label]
+                f.write(f"{filename:<40} {true_class:<20} {pred_class:<20} {confidence:.2%}\n")
 
     # Compute and plot confusion matrix
     cm = confusion_matrix(all_labels, all_preds)
@@ -124,7 +158,11 @@ def run_visualization(run_dir, data_path=None, test_csv=None):
     
     class_labels = config['class_labels']
     num_classes = config['num_classes']
-    data_path = data_path or config['data_path']
+    
+    # Update the config's data_path if provided
+    if data_path:
+        config['data_path'] = data_path
+    data_path = config['data_path']
 
     # Paths
     log_file = os.path.join(run_dir, 'training_log.csv')
@@ -136,6 +174,8 @@ def run_visualization(run_dir, data_path=None, test_csv=None):
     # Get the last directory of data_path and the file name
     last_dir = os.path.basename(os.path.normpath(data_path))
     file_name = os.path.basename(test_csv)
+
+    print(f"Running visualization for {data_path} with {test_csv} from CWD {os.getcwd()}")
     
     # Create a directory for visualization outputs
     vis_dir = os.path.join(run_dir, f'visualization_{last_dir}_{file_name.split(".")[0]}')
@@ -164,8 +204,9 @@ def run_visualization(run_dir, data_path=None, test_csv=None):
 
 if __name__ == "__main__":
     # Find the most recent run directory
-    run_dir = get_latest_run_dir()
+    # run_dir = get_latest_run_dir()
+    run_dir = "/home/bawolf/workspace/break/clip/runs_hyperparam/hyperparam_20241106_124214/search_combined_adjusted/trial_combined_adjusted_20241106-195023/"
     # run_dir = "/home/bawolf/workspace/break/clip/runs/run_20241024-150232_otherpeopleval_large_model"
     # run_dir = "/home/bawolf/workspace/break/clip/runs/run_20241022-122939_3moves_balanced"
-    
-    run_visualization(run_dir)
+    data_path = "/home/bawolf/workspace/break/finetune/blog/combined/all"
+    run_visualization(run_dir, data_path=data_path)

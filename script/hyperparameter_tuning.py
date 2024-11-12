@@ -84,8 +84,9 @@ def objective(trial, hyperparam_run_dir, data_path):
             'dataset_label': dataset_label,
             'trial_number': trial.number,
             'parameters': trial.params,
-            'value': val_accuracy,
-            'visualization_dir': vis_dir
+            'accuracy': val_accuracy,
+            'visualization_dir': vis_dir,
+            'trial_dir': trial_dir
         }
         
         with open(os.path.join(trial_dir, 'trial_info.json'), 'w') as f:

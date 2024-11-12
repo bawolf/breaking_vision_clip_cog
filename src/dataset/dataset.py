@@ -48,6 +48,11 @@ class VideoDataset(Dataset):
     def __getitem__(self, idx):
         video_path, label = self.data[idx]
         
+        if not os.path.exists(video_path):
+            print(f"File not found: {video_path}")
+            print(f"Absolute path attempt: {os.path.abspath(video_path)}")
+            raise FileNotFoundError(f"File not found: {video_path}")
+        
         frames, success = extract_frames(video_path, 
                                       {"max_frames": self.max_frames, "sigma": self.sigma}, 
                                       self.transform)
