@@ -16,43 +16,56 @@ This model is a fine-tuned version of CLIP (ViT-Large/14) specialized in classif
 
 ## Model Description
 
-- **Model Type:** Fine-tuned CLIP model
-- **Base Model:** ViT-Large/14
+- **Model Type:** Custom CLIP-based architecture (VariableLengthCLIP)
+- **Base Model:** CLIP ViT-Large/14 (for feature extraction)
+- **Architecture:**
+  - Uses CLIP's vision encoder for frame-level feature extraction
+  - Processes multiple frames from a video
+  - Averages frame features
+  - Projects to 3 classes via a learned linear layer
 - **Task:** Video Classification
 - **Training Data:** Custom break dance video dataset
-- **Output:** 3 classes of break dance moves
+- **Output:** 3 classes of break dance moves (windmill, halo, swipe)
 
 ## Usage
 
 ```python
-from transformers import CLIPProcessor, CLIPModel
 import torch
-import cv2
+from transformers import CLIPProcessor
 from PIL import Image
+import cv2
+import numpy as np
+from src.models.model import create_model
 
 # Load model and processor
-processor = CLIPProcessor.from_pretrained("[your-username]/clip-breakdance-classifier")
-model = CLIPModel.from_pretrained("[your-username]/clip-breakdance-classifier")
+model = create_model(num_classes=3, pretrained_model_name="openai/clip-vit-large-patch14")
+state_dict = torch.load("model.pth")
+model.load_state_dict(state_dict)
+processor = CLIPProcessor.from_pretrained("openai/clip-vit-large-patch14")
 
-# Load video and process frames
-video = cv2.VideoCapture("breakdance_move.mp4")
-predictions = []
+# Process video
+def process_video(video_path, model, processor):
+    video = cv2.VideoCapture(video_path)
+    frames = []
 
-while video.isOpened():
-    ret, frame = video.read()
-    if not ret:
-        break
+    while video.isOpened():
+        ret, frame = video.read()
+        if not ret:
+            break
 
-    # Convert BGR to RGB and to PIL Image
-    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    frame_pil = Image.fromarray(frame_rgb)
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame_pil = Image.fromarray(frame_rgb)
+        processed = processor(images=frame_pil, return_tensors="pt")
+        frames.append(processed.pixel_values)
 
-    # Process frame
-    inputs = processor(images=frame_pil, return_tensors="pt")
-    outputs = model(**inputs)
-    predictions.append(outputs)
+    video.release()
 
-video.release()
+    # Stack frames and process
+    frames_tensor = torch.cat(frames, dim=0)
+    with torch.no_grad():
+        predictions = model(frames_tensor.unsqueeze(0))
+
+    return predictions
 ```
 
 ## Limitations
