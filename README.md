@@ -24,13 +24,19 @@ chmod +x /usr/local/bin/cog
 
 ## Cog
 
+download the weights
+
+```bash
+gdown https://drive.google.com/uc?id=1Gn3UdoKffKJwz84GnGx-WMFTwZuvDsuf -O ./checkpoints/
+```
+
 build the image
 
 ```bash
 cog build --separate-weights
 ```
 
-push the image
+push a new image
 
 ```bash
 cog push
@@ -81,6 +87,14 @@ clip/
 ├── cog.yaml              # Cog configuration
 └── requirements.txt      # Python dependencies
 ```
+
+## Training Data
+
+To run training on your own, you can find the training data [here](https://drive.google.com/drive/folders/11M6nSuSuvoU2wpcV_-6KFqCzEMGP75q6?usp=drive_link) and put it in the a directory at the root of the project called `./data`.
+
+## Checkpoints
+
+To run predictions with cog or locally on an existing checkpoint, you can find a checkpoint and configuration files [here](https://drive.google.com/drive/folders/1Gn3UdoKffKJwz84GnGx-WMFTwZuvDsuf?usp=sharing) and put them in the a directory at the root of the project called `./checkpoints`.
 
 ## Model Architecture
 

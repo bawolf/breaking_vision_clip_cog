@@ -5,10 +5,10 @@ from visualize import run_visualization
 def get_opposite_dataset_path(run_folder):
     # Map run folders to their corresponding opposite dataset training files
     dataset_mapping = {
-        'search_bryant_adjusted': '../finetune/blog/youtube/adjusted',
-        'search_bryant_random': '../finetune/blog/youtube/random',
-        'search_youtube_adjusted': '../finetune/blog/bryant/adjusted',
-        'search_youtube_random': '../finetune/blog/bryant/random'
+        'search_bryant_adjusted': './data/blog/datasets/youtube/adjusted',
+        'search_bryant_random': './data/blog/datasets/youtube/random',
+        'search_youtube_adjusted': './data/blog/datasets/bryant/adjusted',
+        'search_youtube_random': './data/blog/datasets/bryant/random'
     }
     
     for folder_prefix, dataset_path in dataset_mapping.items():

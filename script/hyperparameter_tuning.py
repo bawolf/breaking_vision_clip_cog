@@ -227,13 +227,13 @@ def run_hyperparameter_search(data_paths, n_trials=100):
 if __name__ == "__main__":
     # List of dataset paths to optimize
     data_paths = [
-        '../finetune/blog/bryant/random',
-        '../finetune/blog/bryant/adjusted',
-        '../finetune/blog/youtube/random',
-        '../finetune/blog/youtube/adjusted',
-        '../finetune/blog/combined/random',
-        '../finetune/blog/combined/adjusted',
-        '../finetune/blog/bryant_train_youtube_val/default'
+        './data/blog/datasets/bryant/random',
+        './data/blog/datasets/bryant/adjusted',
+        './data/blog/datasets/youtube/random',
+        './data/blog/datasets/youtube/adjusted',
+        './data/blog/datasets/combined/random',
+        './data/blog/datasets/combined/adjusted',
+        './data/blog/datasets/bryant_train_youtube_val/default'
     ]
     
     # Run hyperparameter search

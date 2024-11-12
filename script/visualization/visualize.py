@@ -204,9 +204,7 @@ def run_visualization(run_dir, data_path=None, test_csv=None):
 
 if __name__ == "__main__":
     # Find the most recent run directory
-    # run_dir = get_latest_run_dir()
-    run_dir = "/home/bawolf/workspace/break/clip/runs_hyperparam/hyperparam_20241106_124214/search_combined_adjusted/trial_combined_adjusted_20241106-195023/"
-    # run_dir = "/home/bawolf/workspace/break/clip/runs/run_20241024-150232_otherpeopleval_large_model"
-    # run_dir = "/home/bawolf/workspace/break/clip/runs/run_20241022-122939_3moves_balanced"
-    data_path = "/home/bawolf/workspace/break/finetune/blog/combined/all"
-    run_visualization(run_dir, data_path=data_path)
+    run_dir = get_latest_run_dir()
+    
+    # add a data_path argument to visualize a specific dataset
+    run_visualization(run_dir)

@@ -38,6 +38,7 @@ runs/
 outputs/
 runs_hyperparam/
 checkpoints/
+data/
 *.pth
 *.ckpt
 *.pt
