@@ -5,7 +5,6 @@ language:
 base_model:
 - openai/clip-vit-large-patch14
 pipeline_tag: video-classification
-library_name: transformers
 tags:
 - dance
 - vision
