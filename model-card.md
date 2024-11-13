@@ -5,9 +5,35 @@ tags:
   - breakdance
   - video-classification
   - dance
+  - pytorch
+  - vision-encoder
 license: MIT
 datasets:
   - custom
+library_name: transformers
+base_model: openai/clip-vit-large-patch14
+pipeline_tag: video-classification
+model-index:
+  - name: CLIP-Based Break Dance Move Classifier
+    results:
+      - task:
+          type: video-classification
+        dataset:
+          name: custom_breakdance
+          type: custom
+        metrics:
+          - name: Overall Accuracy
+            type: accuracy
+            value: [specify %]
+          - name: Windmill Precision
+            type: precision
+            value: [specify %]
+          - name: Halo Precision
+            type: precision
+            value: [specify %]
+          - name: Swipe Precision
+            type: precision
+            value: [specify %]
 ---
 
 # CLIP-Based Break Dance Move Classifier
