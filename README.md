@@ -1,3 +1,16 @@
+---
+license: mit
+language:
+- en
+base_model:
+- openai/clip-vit-large-patch14
+pipeline_tag: video-classification
+library_name: transformers
+tags:
+- dance
+- vision
+- breaking
+---
 # CLIP-Based Break Dance Move Classifier
 
 A deep learning model for classifying break dance moves using CLIP (Contrastive Language-Image Pre-Training) embeddings. The model is fine-tuned on break dance videos to classify different power moves including windmills, halos, swipes, and baby mills.
