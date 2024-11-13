@@ -33,7 +33,7 @@ class Predictor(BasePredictor):
         )
         self.model.eval()
 
-    def predict(self, video: Path = Input(description="Input video file")) -> dict:
+    def predict(self, video: Path = Input(description="video file of a single move - 224x224 pixels and 30 fps")) -> dict:
         """Run a single prediction on the model"""
         try:
             # Extract frames using shared function with config
