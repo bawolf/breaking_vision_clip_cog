@@ -131,6 +131,6 @@ If you use this model in your research or project, please cite:
   year = {2024},
   publisher = {Hugging Face},
   journal = {Hugging Face Model Hub},
-  howpublished = {\url{https://huggingface.co/[your-username]/clip-breakdance-classifier}}
+  howpublished = {\url{https://huggingface.co/bawolf/clip-breakdance-classifier}}
 }
 ```

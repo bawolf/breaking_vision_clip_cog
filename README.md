@@ -122,5 +122,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 If you use this model in your research, please cite:
 
 ```bibtex
-[Your Citation Here]
+@misc{clip-breakdance-classifier,
+  author = {Bryant Wolf},
+  title = {CLIP-Based Break Dance Move Classifier},
+  year = {2024},
+  publisher = {Hugging Face},
+  journal = {Hugging Face Model Hub},
+  howpublished = {\url{https://github.com/bawolf/breaking_vision_clip_cog}}
+}
 ```
