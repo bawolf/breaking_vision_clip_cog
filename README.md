@@ -12,7 +12,7 @@ tags:
 ---
 # CLIP-Based Break Dance Move Classifier
 
-A deep learning model for classifying break dance moves using CLIP (Contrastive Language-Image Pre-Training) embeddings. The model is fine-tuned on break dance videos to classify different power moves including windmills, halos, swipes, and baby mills.
+A deep learning model for classifying break dance moves using CLIP (Contrastive Language-Image Pre-Training) embeddings. The model is fine-tuned on break dance videos to classify different power moves including windmills, halos, and swipes.
 
 ## Features
 
